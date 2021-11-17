@@ -14,7 +14,22 @@ class TransectionList extends StatelessWidget {
     // ignore: sized_box_for_whitespace
     return Container(
       height:500,
-      child: ListView.builder(itemBuilder:(ctx,index){
+      child: transections.isEmpty ? Column(
+        // ignore: prefer_const_literals_to_create_immutables
+        children: <Widget>[
+          Text('No transection edit yet'),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 200,
+            child: Image.asset(
+              'assets/images/waiting.png',
+               fit: BoxFit.cover, 
+            ),
+          ),        ],
+
+      ): ListView.builder(itemBuilder:(ctx,index){
         return Card(
             child: Row(
               children: <Widget>[

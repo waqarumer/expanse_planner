@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print
 
 import 'package:expanse_planner/models/transection.dart';
+import 'package:expanse_planner/widgets/chart.dart';
 import 'package:expanse_planner/widgets/new_transections.dart';
 import 'package:expanse_planner/widgets/transection_list.dart';
 import 'package:flutter/material.dart';
@@ -38,25 +39,38 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransections = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'weekly groceries',
-      amount: 20.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'phone',
-      amount: 10.99,
-      date: DateTime.now(),
-    ),
-  ];
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New Shoes',
+    //   amount: 69.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'weekly groceries',
+    //   amount: 20.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't3',
+    //   title: 'phone',
+    //   amount: 10.99,
+    //   date: DateTime.now(),
+    // ),
+  ]; 
+  
+  List<Transaction> get _recrntTransactions{
+
+    return _userTransections.where((tx){
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+
+    }).toList(); 
+
+  }
 
   void _addNewTransection(
     String title,
@@ -103,14 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Theme.of(context).primaryColor,
-                child: Text('Chart'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recrntTransactions),
             TransectionList(_userTransections),
           ],
         ),
