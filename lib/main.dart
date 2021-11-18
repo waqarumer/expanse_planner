@@ -39,24 +39,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransections = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'weekly groceries',
-    //   amount: 20.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't3',
-    //   title: 'phone',
-    //   amount: 10.99,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'weekly groceries',
+      amount: 20.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'phone',
+      amount: 10.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't4',
+      title: 'biryani',
+      amount: 300.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't4',
+      title: 'bike',
+      amount: 100000.99,
+      date: DateTime.now(),
+    ),
   ]; 
   
   List<Transaction> get _recrntTransactions{

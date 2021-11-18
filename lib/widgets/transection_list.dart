@@ -31,41 +31,32 @@ class TransectionList extends StatelessWidget {
 
       ): ListView.builder(itemBuilder:(ctx,index){
         return Card(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Theme.of(context).primaryColor, width: 2)),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'Rs. ${transections[index].amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      transections[index].title,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      DateFormat().add_yMMMd().format(transections[index].date),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+          elevation: 5,
+          margin: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+          child: ListTile(
+            
+            leading: CircleAvatar(
+              radius: 30,
+              // ignore: unnecessary_string_escapes
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: FittedBox(child: Text('\Rs.${transections[index].amount}')),
+              ),
             ),
-          );
+            title: Text(
+              transections[index].title,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(DateFormat.yMMMd().format(transections[index].date,),
+            style: TextStyle(
+              fontSize: 16
+            ),
+            ),
+          ),
+        );
       },
       itemCount: transections.length,
 

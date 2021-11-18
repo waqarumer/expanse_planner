@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransections extends StatefulWidget {
   final Function addTx;
@@ -15,8 +16,9 @@ class _NewTransectionsState extends State<NewTransections> {
   final titleController = TextEditingController();
 
   final amountController = TextEditingController();
+  DateTime? _selectedDate;
 
-  void submitData() {
+  void _submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
@@ -29,6 +31,21 @@ class _NewTransectionsState extends State<NewTransections> {
     Navigator.of(context).pop();
   }
 
+  void _presentDatePicker(){
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now()).then((pickedDate){
+        if(pickedDate == null){
+          return;
+        }
+        setState(() {
+        _selectedDate = pickedDate;  
+        });
+        
+      });
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -45,7 +62,7 @@ class _NewTransectionsState extends State<NewTransections> {
               //   titleInput = val;
               // },
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
@@ -54,24 +71,42 @@ class _NewTransectionsState extends State<NewTransections> {
               // },
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
-            MaterialButton(
-              onPressed: () {
-                // // print(titleInput);
-                // // print(amountInput);
-                // addTx(
-                //   titleController.text,
-                //   double.parse(amountController.text),
-                // );
-                submitData();
-              },
-              child: Text(
-                'Add Transaction',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      // ignore: unnecessary_null_comparison
+                      _selectedDate == null
+                      ? 'No Date Choosen !'
+                      : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
+                       ),
+                  ),
+                  MaterialButton(
+                    onPressed: _presentDatePicker,
+                    child: Text('Choose Date',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Theme.of(context).primaryColor,
+                    ),
+                ],
               ),
+            ),
+            ElevatedButton(
+               onPressed: () {
+               _submitData();
+               },
+              child: Text(
+               'Add Transaction',
+               style: TextStyle(
+               color: Colors.white,
+               fontWeight: FontWeight.bold
+               ),
+              ),
+              
             ),
           ],
         ),
