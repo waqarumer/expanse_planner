@@ -87,12 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addNewTransection(
     String title,
     double amount,
+    DateTime chosenDate
   ) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: title,
         amount: amount,
-        date: DateTime.now());
+        date: chosenDate);
     setState(() {
       _userTransections.add(newTx);
     });
@@ -108,6 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
             behavior: HitTestBehavior.opaque,
           );
         });
+  }
+
+  void _deleteTransection(String id){
+    setState(() {
+      _userTransections.removeWhere((tx) => tx.id == id);
+    });
   }
 
   @override
@@ -130,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recrntTransactions),
-            TransectionList(_userTransections),
+            TransectionList(_userTransections,_deleteTransection),
           ],
         ),
 

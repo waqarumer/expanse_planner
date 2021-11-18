@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 
 class TransectionList extends StatelessWidget {
   final List<Transaction> transections;
-  const TransectionList(this.transections, {Key? key}) : super(key: key);
+  final Function deleteTx;
+  const TransectionList(this.transections,this.deleteTx, {Key? key}) : super(key: key);
 
   
   @override
@@ -54,6 +55,11 @@ class TransectionList extends StatelessWidget {
             style: TextStyle(
               fontSize: 16
             ),
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              color: Theme.of(context).errorColor,
+              onPressed:()=>deleteTx(transections[index].id),
             ),
           ),
         );

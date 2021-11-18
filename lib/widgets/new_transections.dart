@@ -13,20 +13,24 @@ class NewTransections extends StatefulWidget {
 }
 
 class _NewTransectionsState extends State<NewTransections> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
 
-  final amountController = TextEditingController();
+  final _amountController = TextEditingController();
   DateTime? _selectedDate;
 
   void _submitData() {
-    final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if(_amountController.text.isEmpty){
+      return;
+    }
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
     widget.addTx(
       enteredTitle,
       enteredAmount,
+      _selectedDate,
     );
     Navigator.of(context).pop();
   }
@@ -61,7 +65,7 @@ class _NewTransectionsState extends State<NewTransections> {
               // onChanged: (val) {
               //   titleInput = val;
               // },
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
             ),
             TextField(
@@ -69,7 +73,7 @@ class _NewTransectionsState extends State<NewTransections> {
               // onChanged: (val) {
               //   amountInput = val;
               // },
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _submitData(),
             ),
