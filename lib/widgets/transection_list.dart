@@ -21,7 +21,7 @@ class TransectionList extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Container(
+          SizedBox(
             height: 200,
             child: Image.asset(
               'assets/images/waiting.png',
@@ -40,7 +40,7 @@ class TransectionList extends StatelessWidget {
               // ignore: unnecessary_string_escapes
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: FittedBox(child: Text('\Rs.${transections[index].amount}')),
+                child: FittedBox(child: Text('Rs.${transections[index].amount}')),
               ),
             ),
             title: Text(
